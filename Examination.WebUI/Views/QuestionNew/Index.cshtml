@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Examination.Domain.Entities.Question>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>@ViewBag.ExamName</h4>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @{var text = item.Text;}
+                @Html.Raw(text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+                @Html.ActionLink("Answers", "Index", "Answer", new { id = item.QuestionId }, null) |
+                @Html.ActionLink("Hints", "Index", "Guide", new { id = item.QuestionId }, null) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.QuestionId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.QuestionId })
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Exams", "Index", "Exam", new { id = Session["ExamId"] }, null)
+</div>

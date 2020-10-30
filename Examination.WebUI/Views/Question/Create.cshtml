@@ -1,0 +1,121 @@
+﻿@using Examination.WebUI.Models
+@model Examination.WebUI.Models.QuestionView
+
+@{
+    ViewBag.Title = "Create Question";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<h2>Question view</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>QuestionView</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Question, new { @id = "Question" })
+                <script type="text/javascript">
+                    CKEDITOR.replace('Question');
+                </script>
+                @Html.ValidationMessageFor(model => model.Question)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Point, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Point)
+                @Html.ValidationMessageFor(model => model.Point)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Order)
+                @Html.ValidationMessageFor(model => model.Order)
+            </div>
+        </div>
+        <div class="form-group" id="Answer_Section">
+            @for (int i = 0; i < Model.Answers.Count; i++)
+            {
+                @Html.Partial("_Answer", Model.Answers[i])
+
+            }
+        </div>
+        @Html.ActionLink("Add Answer", "HtmlAnswer", null, new { @id = "Add-Answer-Link" })
+        <div class="form-group" id="Hint_Section">
+            @for (int i = 0; i < Model.Hints.Count; i++)
+            {
+                @Html.Partial("_Hint", Model.Hints[i])
+
+            }
+        </div>
+        @Html.ActionLink("Add Hint", "HtmlHint", null, new { @id = "Add-Hint-Link" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+
+    jQuery("#Add-Hint-Link").click(function () {
+        $.ajax({
+            url: this.href,
+            cache: false,
+            async: false,
+            success: function (html) {
+                jQuery("#Hint_Section").append(html);
+            }
+        });
+
+        return false;
+    });
+    jQuery("#Add-Answer-Link").click(function () {
+        $.ajax({
+            url: this.href,
+            cache: false,
+            async: false,
+            success: function (html) {
+                jQuery("#Answer_Section").append(html);
+            }
+        });
+
+        return false;
+    });
+    jQuery('a.delete-schedule-link').live('click', function () {
+
+            jQuery(this).parents("div.camp-schedule:first").remove();
+        return false;
+
+    });
+    $(document).ready(function () {
+        if ($('#Question')) {
+            $('#Question').ckeditor();
+            $('input[type=submit]').bind('click', function () {
+                $('#Question').ckeditorGet().updateElement();
+            });
+        }
+    });
+
+</script>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Examination.WebUI.Models.UserExamResultView>
+
+@{
+    ViewBag.Title = "ExamResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ExamResult</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.QuestionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberAnswer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SelectedAnswer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuestionPoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duration)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@{var Text = item.QuestionName;}
+            @Html.Raw(Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberAnswer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SelectedAnswer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuestionPoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.duration)
+        </td>
+    </tr>
+}
+
+</table>

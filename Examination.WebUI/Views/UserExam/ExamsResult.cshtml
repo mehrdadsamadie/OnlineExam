@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Examination.WebUI.Models.UserExamsResultView>
+
+@{
+    ViewBag.Title = "ExamsResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ExamsResult</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExamName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExamType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExamPoint)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.ExamName, "ExamResult", new {id=item.ExamId },null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExamType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExamPoint)
+        </td>
+    </tr>
+}
+
+</table>

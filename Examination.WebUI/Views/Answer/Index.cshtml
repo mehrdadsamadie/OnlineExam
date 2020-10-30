@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Examination.Domain.Entities.Answer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<h4>@Html.Raw(ViewBag.QuestionText)</h4>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <div>
+        <table class="table">
+            <tr>
+                <th>
+                    Correct
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Text)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+        {
+                <tr>
+                    <td>
+                        @Html.RadioButton("CorrectAnswer", "all", item.Question.CorrectAnswerId == item.AnswerId, new { @id = item.AnswerId, onclick = "CorrectAnswer(id);" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Order)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AnswerId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.AnswerId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AnswerId })
+                    </td>
+                </tr>
+        }
+
+        </table>
+        <input id="Button1" type="button" value="Remove Correct Answer" onclick="RemoveCorrectAnswer()" />
+        <br />
+        @Html.ActionLink("Questions", "Index", "QuestionNew", new { id = ViewBag.ExamId }, null)
+
+    </div>
+    <script type="text/javascript">
+        function CorrectAnswer(id) {
+            var url = "/Answer/Correct/";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { id: id },
+                cache: false,
+                success: function (data) {
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        }
+        function RemoveCorrectAnswer() {
+            alert("1");
+            var url = "/Answer/RemoveAnswer/";
+            $.ajax({
+                url: url,
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    alert("2");
+                    $('input[name=CorrectAnswer]').attr('checked', false);
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        }
+    </script>

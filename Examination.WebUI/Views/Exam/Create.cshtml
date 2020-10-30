@@ -1,0 +1,92 @@
+﻿@*@using System.Web.Mvc.Html*@
+@model Examination.Domain.Entities.Exam
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+<link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery.ui.theme.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+<script src="~/Scripts/jquery-ui.unobtrusive-2.2.0.js"></script>
+
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+
+
+@using (Html.BeginForm("Create", "Exam", FormMethod.Post, new { @id = "formText" }))
+{
+
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Exam</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+<div class="col-md-10">
+    @Html.EditorFor(model => model.Name)
+@Html.ValidationMessageFor(model => model.Name)
+</div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ParentExamId, "ParentExam", new { @class = "control-label col-md-2" })
+<div class="col-md-10">
+    @Html.DropDownListFor(model => model.ParentExamId, ViewBag.ParentExamId as SelectList, "Not selected")
+@Html.ValidationMessageFor(model => model.ParentExamId)
+</div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ExamTypeId, "ExamType", new { @class = "control-label col-md-2" })
+<div class="col-md-10">
+    @Html.DropDownListFor(model => model.ExamTypeId, ViewBag.ExamTypeId as SelectList, "Not selected")
+@Html.ValidationMessageFor(model => model.ExamTypeId)
+</div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.StartDate, new { @class = "control-label col-md-2" })
+<div class="col-md-10">
+    @Html.JQueryUI().DatepickerFor(model => model.StartDate).ChangeMonth(true).ChangeYear(true).DateFormat("dd MMM yyyy")
+@Html.ValidationMessageFor(model => model.StartDate)
+</div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.EndDate, new { @class = "control-label col-md-2" })
+<div class="col-md-10">
+    @Html.JQueryUI().DatepickerFor(model => model.EndDate).ChangeMonth(true).ChangeYear(true).DateFormat("dd MMM yyyy")
+@Html.ValidationMessageFor(model => model.EndDate)
+</div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.Description, "Description", new { @class = "control-label col-md-2" })
+<div class="col-md-10">
+    @Html.TextAreaFor(model => model.Description, new { @class = "mceEditor", id = "Description" })
+    <script type="text/javascript">
+        CKEDITOR.replace('Description');
+    </script>
+@Html.ValidationMessageFor(model => model.Description)
+</div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-default" id="btnCreate"/>
+    </div>
+</div>
+</div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqCkeditor")
+}*@

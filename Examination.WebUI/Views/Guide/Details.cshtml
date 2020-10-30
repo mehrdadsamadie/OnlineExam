@@ -1,0 +1,54 @@
+﻿@model Examination.Domain.Entities.Guide
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Guide</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Text)
+        </dt>
+
+        <dd>
+            @{var Text = Model.Question.Text;
+            @Html.Raw(Text);
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @{var Hint = Model.Text;}
+            @Html.Raw(Hint)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Reduce)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.Reduce)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GuideId }) |
+    @Html.ActionLink("Back to List", "Index", new { id = (int.Parse(Session["QuestionId"].ToString())) })
+</p>

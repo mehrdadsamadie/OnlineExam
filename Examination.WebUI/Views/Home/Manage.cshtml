@@ -1,0 +1,47 @@
+﻿@using Examination.WebUI.Models.Helper
+
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .top-buffer {
+        margin-top: 20px;
+        margin-bottom: 80px;
+    }
+</style>
+<h2>Manage</h2>
+
+<html>
+<head>
+</head>
+<body>
+    <div class="col-md-12">
+        <div class="col-md-2">
+
+        </div>
+        <div dir="rtl" class="col-md-3">
+            <div class="row top-buffer">
+                @Html.ImageActionLink(Url.Content("~/Image/tests-icon-resize.png"), "Exams", "Index", "Exam", null, null, new { title = "Exam", @class = "img-circle" })
+            </div>
+            <div class="row top-buffer">
+                @Html.ImageActionLink(Url.Content("~/Image/User-Group-icon.png"), "UsersAdmin", "Index", "UsersAdmin", null, null, new { title = "Users", @class = "img-circle" })
+            </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-3">
+            <div class="row top-buffer">
+                @Html.ImageActionLink(Url.Content("~/Image/Administrator-icon.png"), "Roles", "Index", "RolesAdmin", null, null, new { title = "Roles", @class = "img-circle" })
+            </div>
+            <div class="row top-buffer">
+                @Html.ImageActionLink(Url.Content("~/Image/custom-reports-icon.png"), "Report", "Report", "UserExam", null, null, new { title = "Report", @class = "img-circle" })
+
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</body>
+</html>

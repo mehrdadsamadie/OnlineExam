@@ -1,0 +1,36 @@
+﻿@model Examination.WebUI.Models.HintView
+ @{Guid UniqueID = Guid.NewGuid();}
+<div class="camp-schedule form-sec">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Hint</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            <a href="#" data-toggle="tooltip" data-original-title="Delete" id="deleteSchedule" class="tool-tip delete-schedule-link ">uuuu</a>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Hint, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Hint, new { @id = @UniqueID })
+                    <script type="text/javascript">
+                        CKEDITOR.replace('@UniqueID');
+                    </script>
+                    @Html.ValidationMessageFor(model => model.Hint)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Order, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Order)
+                    @Html.ValidationMessageFor(model => model.Order)
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>

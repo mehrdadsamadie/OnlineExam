@@ -1,0 +1,112 @@
+﻿@model Examination.WebUI.Models.ExamView
+
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .top-buffer {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<h2>Test</h2>
+<div id="result"></div>
+@using (Ajax.BeginForm("Test", "UserExam", null, new AjaxOptions(), FormMethod.Post))
+{
+    @Html.ValidationSummary();
+    <div class="col-md-12">
+
+        <hr />
+
+        @Html.HiddenFor(model => model.ExamId)
+        @Html.HiddenFor(model => model.ExamTypeId)
+        @Html.HiddenFor(model => model.QuestionId)
+        @Html.HiddenFor(model => model.HintId)
+        @Html.HiddenFor(model => model.StartTime)
+        <div class="col-md-7">
+
+            <div class="row top-buffer">
+                <div class="alert alert-warning" role="alert">
+                    @if (Model.ExamPoint != null)
+                    {
+                        <div class="col-md-4">
+
+                            @Html.DisplayNameFor(model => model.ExamPoint)
+                            @Html.DisplayFor(model => model.ExamPoint, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    }
+                    @if (Model.QuestionPoint != null)
+                    {
+                        <div class="col-md-4">
+                            @Html.DisplayNameFor(model => model.QuestionPoint)
+                            @Html.DisplayFor(model => model.QuestionPoint, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="row top-buffer">
+                    <span class="badge">
+                        @Html.DisplayNameFor(model => model.Question)
+                    </span>
+                </div>
+                @{var question = Model.Question;}
+                @Html.Raw(question)
+
+            </div>
+
+            @foreach (var item in Model.Answers)
+            {
+                <div>
+                    @Html.RadioButtonFor(m => m.SelctedAnswer, item.AnswerId, new { id = item.AnswerId.ToString() })
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </div>
+                <br />
+            }
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4">
+            @if (Model.HintId != null)
+            {
+                <div>
+                    <div class="row top-buffer">
+                        <span class="badge">
+                            @Html.DisplayNameFor(model => model.Hint)
+                        </span>
+                    </div>
+                    @{var hint = Model.Hint;}
+                    <div class="bg-danger">
+                        @Html.Raw(hint)
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-7">
+
+            <div class="row top-buffer">
+                <input type="submit" value="Next" class="btn btn-info" />
+            </div>
+            <div class="row top-buffer">
+                <div class="alert alert-success" role="alert">
+                    <div class="col-md-4">
+                        @Html.DisplayNameFor(model => model.TotalQuestion)
+
+                        @Html.DisplayFor(model => model.TotalQuestion)
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayNameFor(model => model.TotalQuestionAnswered)
+
+                        @Html.DisplayFor(model => model.TotalQuestionAnswered, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
